@@ -6,7 +6,7 @@ actions:
   - unique_name: Customer Segmentation Plots
     source_type: "python"
     action_reference: "src/Customer Segmentation Plots"
-    display_name: "Fintech Data Preparation"
+    display_name: "Customer Segmentation Plots"
     parameters:
       - param_name: "data"
         display_name: "data"
@@ -180,8 +180,8 @@ actions:
         df_param_type: table
   - unique_name: merge_demographic_and_physiographic
     source_type: "python"
-    action_reference: "src/fintech_data_preparation"
-    display_name: "fintech_data_preparation"
+    action_reference: "src/merge_demographic_and_physiographic"
+    display_name: "merge_demographic_and_physiographic"
     parameters:
       - param_name: "df1"
         display_name: "df1"
@@ -201,6 +201,86 @@ actions:
         display_name: "join_type"
         df_param_type: string
         default_value: "left"
+  - unique_name: physiographic_data_preparation
+    source_type: "python"
+    action_reference: "src/physiographic_data_preparation"
+    display_name: "physiographic_data_preparation"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "physiographic_column_info"
+        display_name: "physiographic_column_info"
+        df_param_type: table
+  - unique_name: propensity_calculation_cohort_building
+    source_type: "python"
+    action_reference: "src/propensity_calculation_cohort_building"
+    display_name: "propensity_calculation_cohort_building"
+    parameters:
+      - param_name: "source_data"
+        display_name: "source_data"
+        df_param_type: table
+      - param_name: "transformed_data"
+        display_name: "transformed_data"
+        df_param_type: table
+      - param_name: "target_column"
+        display_name: "target_column"
+        df_param_type: column
+        default_value: "enrolled"
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "user"
+      - param_name: "propensity_lower_limit"
+        display_name: "propensity_lower_limit"
+        df_param_type: decimal
+      - param_name: "propensity_upper_limit"
+        display_name: "propensity_upper_limit"
+        df_param_type: decimal        
+      - param_name: "method"
+        display_name: "method"
+        df_param_type: string 
+        default_value: "XGBoost Classifier"
+  - unique_name: propensity_calculation_cohort_building
+    source_type: "python"
+    action_reference: "src/propensity_calculation_cohort_building"
+    display_name: "propensity_calculation_cohort_building"
+    parameters:
+      - param_name: "source_data"
+        display_name: "source_data"
+        df_param_type: table
+      - param_name: "transformed_data"
+        display_name: "transformed_data"
+        df_param_type: table
+      - param_name: "target_column"
+        display_name: "target_column"
+        df_param_type: column
+        default_value: "enrolled"
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "user"
+      - param_name: "propensity_lower_limit"
+        display_name: "propensity_lower_limit"
+        df_param_type: decimal
+      - param_name: "propensity_upper_limit"
+        display_name: "propensity_upper_limit"
+        df_param_type: decimal        
+      - param_name: "method"
+        display_name: "method"
+        df_param_type: string 
+        default_value: "XGBoost Classifier"
+  - unique_name: top_screen_data_preparation
+    source_type: "python"
+    action_reference: "src/top_screen_data_preparation"
+    display_name: "top_screen_data_preparation"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "top_screen_data"
+        display_name: "top_screen_data"
+        df_param_type: table
 
 flows:
   - unique_name: "Customer Discount Recommendation"
