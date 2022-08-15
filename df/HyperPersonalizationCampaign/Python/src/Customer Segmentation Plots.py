@@ -56,7 +56,7 @@ class ExecutionHandler(BaseExecutionHandler):
                                        columns=[legend], aggfunc=operation_type).fillna(0).reset_index()
 
                 df_plot.clubbed_histogram(legend,
-                                          table.columns[0], table.columns[1:], table)
+                                          table.columns[0], list(table.columns[1:]), table)
 
         except Exception as e:
             print(e)

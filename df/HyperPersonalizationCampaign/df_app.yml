@@ -3,77 +3,220 @@ version: 1.0
 display_name: "Hyper Personalization Campaign From DBT"
 description: "Hyper Personalization Campaign From DBT"
 actions:
-  - unique_name: fintech_data_preparation
+  - unique_name: Customer Segmentation Plots
     source_type: "python"
-    action_reference: "src/fintech_data_preparation"
+    action_reference: "src/Customer Segmentation Plots"
     display_name: "Fintech Data Preparation"
     parameters:
       - param_name: "data"
+        display_name: "data"
         df_param_type: table
-        display_name: "Target Table"
-  - unique_name: propensity_calculation_cohort_building
-    source_type: "python"
-    action_reference: "src/propensity_calculation_cohort_building"
-    display_name: "Propensity Calculation Cohort Building"
-    parameters:
-      - param_name: "source_data"
-        df_param_type: table
-        display_name: "source_data"
-      - param_name: "transformed_data"
-        df_param_type: table
-        display_name: "transformed_data"
-      - param_name: "target_column"
-        df_param_type: column
-        display_name: "target_column"
-        default_value: "enrolled"
-      - param_name: "CustomerID"
-        df_param_type: column
-        display_name: "CustomerID"
-        default_value: "user"
-      - param_name: "propensity_lower_limit"
-        df_param_type: decimal
-        display_name: "propensity_lower_limit"
-      - param_name: "propensity_upper_limit"
-        df_param_type: decimal
-        display_name: "propensity_upper_limit"
-      - param_name: "method"
-        df_param_type: string
-        display_name: "method"
-        default_value: "XGBoost Classifier"
-        single_select_options: ["Decision Tree Classifier","Logistic Regression","Random Forest Classifier","XGBoost Classifier"]
-  - unique_name: top_screen_data_preparation
-    source_type: "python"
-    action_reference: "src/top_screen_data_preparation"
-    display_name: "Top Screen Data Preparation"
-    parameters:
-      - param_name: "data"
-        df_param_type: table
-        display_name: "Data"
-      - param_name: "top_screen_data"
-        df_param_type: table
-        display_name: "Top Screen Data"
-  - unique_name: customer_segmentation_plots
-    source_type: "python"
-    action_reference: "src/customer_segmentation_plots"
-    display_name: "Customer Segmentation Plots"
-    parameters:
-      - param_name: "data"
-        df_param_type: table
-        display_name: "Data"
       - param_name: "axis"
-        df_param_type: string
         display_name: "axis"
+        df_param_type: string
       - param_name: "legend"
-        df_param_type: string
         display_name: "legend"
+        df_param_type: string
       - param_name: "value"
-        df_param_type: string
         display_name: "value"
+        df_param_type: string
       - param_name: "sql_filter"
-        df_param_type: string
         display_name: "sql_filter"
-        default_value: "1=1"
-      - param_name: "value_type"
         df_param_type: string
+      - param_name: "value_type"
         display_name: "value_type"
-        single_select_options: ["Count","Count Percentage","Unique Count","Average","Maximum","Minimum","Median","Total"]
+        df_param_type: string
+  - unique_name: customer_discount_recomendation
+    source_type: "python"
+    action_reference: "src/customer_discount_recomendation"
+    display_name: "customer_discount_recomendation"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "User ID"
+      - param_name: "propensity_data"
+        display_name: "propensity_data"
+        df_param_type: string
+      - param_name: "propensity_column"
+        display_name: "propensity_column"
+        df_param_type: column
+        default_value: "Propensity"
+      - param_name: "lower_range_discount"
+        display_name: "lower_range_discount"
+        df_param_type: decimal
+      - param_name: "upper_range_discount"
+        display_name: "upper_range_discount"
+        df_param_type: decimal
+      - param_name: "segment_column"
+        display_name: "segment_column"
+        df_param_type: column
+        default_value: "Segment"
+  - unique_name: customer_five_personality_traits
+    source_type: "python"
+    action_reference: "src/customer_five_personality_traits"
+    display_name: "customer_five_personality_traits"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "user"
+      - param_name: "psychographic_data"
+        display_name: "psychographic_data"
+        df_param_type: table
+      - param_name: "segment_column"
+        display_name: "segment_column"
+        df_param_type: column
+        default_value: "Segment"
+  - unique_name: customer_frequency_summary_plot
+    source_type: "python"
+    action_reference: "src/customer_frequency_summary_plot"
+    display_name: "customer_frequency_summary_plot"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "axis"
+        display_name: "axis"
+        df_param_type: column
+      - param_name: "legend"
+        display_name: "legend"
+        df_param_type: column
+        default_value: "Segment"
+      - param_name: "sql_filter"
+        display_name: "sql_filter"
+        df_param_type: string
+        default_value: "optional"
+      - param_name: "number_of_class"
+        display_name: "number_of_class"
+        df_param_type: integer
+        default_value: 6
+  - unique_name: customer_segment_profiling
+    source_type: "python"
+    action_reference: "src/customer_segment_profiling"
+    display_name: "customer_segment_profiling"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column_list
+        default_value: [ "User ID" ]
+      - param_name: "segment_column"
+        display_name: "segment_column"
+        df_param_type: column
+        default_value: "Segment"
+  - unique_name: customer_segmentation_summary
+    source_type: "python"
+    action_reference: "src/customer_segmentation_summary"
+    display_name: "customer_segmentation_summary"
+    parameters:
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "segment_column"
+        display_name: "segment_column"
+        df_param_type: column
+        default_value: "Segment"
+  - unique_name: customer_segmentation
+    source_type: "python"
+    action_reference: "src/customer_segmentation"
+    display_name: "customer_segmentation"
+    parameters:
+      - param_name: "propensity_data"
+        display_name: "propensity_data"
+        df_param_type: table
+      - param_name: "data"
+        display_name: "data"
+        df_param_type: table
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "User ID"
+      - param_name: "location"
+        display_name: "location"
+        df_param_type: string
+      - param_name: "number_of_segments"
+        display_name: "number_of_segments"
+        df_param_type: integer
+        default_value: 4
+  - unique_name: demographic_data_preparation
+    source_type: "python"
+    action_reference: "src/demographic_data_preparation"
+    display_name: "demographic_data_preparation"
+    parameters:
+      - param_name: "Data"
+        display_name: "Data"
+        df_param_type: table
+  - unique_name: fintech_customer_cohort_analysis
+    source_type: "python"
+    action_reference: "src/fintech_customer_cohort_analysis"
+    display_name: "fintech_customer_cohort_analysis"
+    parameters:
+      - param_name: "fintech_data"
+        display_name: "fintech_data"
+        df_param_type: table
+      - param_name: "propensity_data"
+        display_name: "propensity_data"
+        df_param_type: table
+      - param_name: "CustomerID"
+        display_name: "CustomerID"
+        df_param_type: column
+        default_value: "user"
+  - unique_name: fintech_data_preparation
+    source_type: "python"
+    action_reference: "src/fintech_data_preparation"
+    display_name: "fintech_data_preparation"
+    parameters:
+      - param_name: "Data"
+        display_name: "Data"
+        df_param_type: table
+  - unique_name: merge_demographic_and_physiographic
+    source_type: "python"
+    action_reference: "src/fintech_data_preparation"
+    display_name: "fintech_data_preparation"
+    parameters:
+      - param_name: "df1"
+        display_name: "df1"
+        df_param_type: table
+      - param_name: "df2"
+        display_name: "df2"
+        df_param_type: table
+      - param_name: "df1_key"
+        display_name: "df1_key"
+        df_param_type: column
+        default_value: "User ID"
+      - param_name: "df2_key"
+        display_name: "df2_key"
+        df_param_type: column
+        default_value: "user"
+      - param_name: "join_type"
+        display_name: "join_type"
+        df_param_type: string
+        default_value: "left"
+
+flows:
+  - unique_name: "Customer Discount Recommendation"
+    display_name: "Customer Discount Recommendation"
+    flow_actions:
+      - action_reference: "customer_discount_recomendation"
+        display_name: "customer_discount_recomendation"
+        stage_name: "First stage"
+        parameters:
+          - param_name: lower_range_discount
+            global_parameter: Lower Range Of The Discount
+          - param_name: upper_range_discount
+            global_parameter: Upper Range Of The Discount
+    parameters:
+      - param_name: Lower Range Of The Discount
+        df_param_type: decimal
+      - param_name: Upper Range Of The Discount
+        df_param_type: decimal
+

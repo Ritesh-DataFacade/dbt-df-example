@@ -13,10 +13,10 @@ from dateutil import parser
 
 
 class ExecutionHandler(BaseExecutionHandler):
-    def execute(self, data):
+    def execute(self, Data):
 
         try:
-            table = data
+            table = Data
             table['first_open'] = [parser.parse(row_date) for row_date in table['first_open']]
             table["enrolled_date"] = [parser.parse(row_date) if isinstance(row_date, str) else row_date for
                                       row_date in table["enrolled_date"]]
